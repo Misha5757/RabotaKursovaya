@@ -1,0 +1,528 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ELDARModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CONSUMER">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Invoice" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="INN" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="CodeProfile" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MATERIAL">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUCER">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Invoice" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="CodeProfile" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUCT">
+          <Key>
+            <PropertyRef Name="CallNumber" />
+          </Key>
+          <Property Name="CallNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="MaterialCode" Type="int" Nullable="false" />
+          <Property Name="ProducerCode" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PROFILE">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REQUEST">
+          <Key>
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="Number" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountOfProduct" Type="int" Nullable="false" />
+          <Property Name="DateRequest" Type="date" Nullable="false" />
+          <Property Name="Deadline" Type="date" Nullable="false" />
+          <Property Name="ConsumerCode" Type="int" Nullable="false" />
+          <Property Name="ProductNumber" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="Status" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SignIn">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="RoleID" Type="nchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CONSUMER_PROFILE">
+          <End Role="PROFILE" Type="Self.PROFILE" Multiplicity="1" />
+          <End Role="CONSUMER" Type="Self.CONSUMER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROFILE">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="CONSUMER">
+              <PropertyRef Name="CodeProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCER_PROFILE">
+          <End Role="PROFILE" Type="Self.PROFILE" Multiplicity="1" />
+          <End Role="PRODUCER" Type="Self.PRODUCER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROFILE">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="PRODUCER">
+              <PropertyRef Name="CodeProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCT_MATERIAL">
+          <End Role="MATERIAL" Type="Self.MATERIAL" Multiplicity="1" />
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MATERIAL">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="PRODUCT">
+              <PropertyRef Name="MaterialCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCT_PRODUCER">
+          <End Role="PRODUCER" Type="Self.PRODUCER" Multiplicity="1" />
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCER">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="PRODUCT">
+              <PropertyRef Name="ProducerCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REQUEST_CONSUMER">
+          <End Role="CONSUMER" Type="Self.CONSUMER" Multiplicity="1" />
+          <End Role="REQUEST" Type="Self.REQUEST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONSUMER">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="REQUEST">
+              <PropertyRef Name="ConsumerCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REQUEST_PRODUCT">
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+          <End Role="REQUEST" Type="Self.REQUEST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCT">
+              <PropertyRef Name="CallNumber" />
+            </Principal>
+            <Dependent Role="REQUEST">
+              <PropertyRef Name="ProductNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SignIn_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SignIn" Type="Self.SignIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Status" />
+            </Principal>
+            <Dependent Role="SignIn">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ELDARModelContainer">
+          <EntitySet Name="CONSUMER" EntityType="Self.CONSUMER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MATERIAL" EntityType="Self.MATERIAL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUCER" EntityType="Self.PRODUCER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PROFILE" EntityType="Self.PROFILE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REQUEST" EntityType="Self.REQUEST" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SignIn" EntityType="Self.SignIn" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CONSUMER_PROFILE" Association="Self.FK_CONSUMER_PROFILE">
+            <End Role="PROFILE" EntitySet="PROFILE" />
+            <End Role="CONSUMER" EntitySet="CONSUMER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCER_PROFILE" Association="Self.FK_PRODUCER_PROFILE">
+            <End Role="PROFILE" EntitySet="PROFILE" />
+            <End Role="PRODUCER" EntitySet="PRODUCER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCT_MATERIAL" Association="Self.FK_PRODUCT_MATERIAL">
+            <End Role="MATERIAL" EntitySet="MATERIAL" />
+            <End Role="PRODUCT" EntitySet="PRODUCT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCT_PRODUCER" Association="Self.FK_PRODUCT_PRODUCER">
+            <End Role="PRODUCER" EntitySet="PRODUCER" />
+            <End Role="PRODUCT" EntitySet="PRODUCT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REQUEST_CONSUMER" Association="Self.FK_REQUEST_CONSUMER">
+            <End Role="CONSUMER" EntitySet="CONSUMER" />
+            <End Role="REQUEST" EntitySet="REQUEST" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REQUEST_PRODUCT" Association="Self.FK_REQUEST_PRODUCT">
+            <End Role="PRODUCT" EntitySet="PRODUCT" />
+            <End Role="REQUEST" EntitySet="REQUEST" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SignIn_Role" Association="Self.FK_SignIn_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="SignIn" EntitySet="SignIn" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ELDARModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CONSUMER">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Invoice" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="INN" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CodeProfile" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PROFILE" Relationship="Self.FK_CONSUMER_PROFILE" FromRole="CONSUMER" ToRole="PROFILE" />
+          <NavigationProperty Name="REQUEST" Relationship="Self.FK_REQUEST_CONSUMER" FromRole="CONSUMER" ToRole="REQUEST" />
+        </EntityType>
+        <EntityType Name="MATERIAL">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PRODUCT" Relationship="Self.FK_PRODUCT_MATERIAL" FromRole="MATERIAL" ToRole="PRODUCT" />
+        </EntityType>
+        <EntityType Name="PRODUCER">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Invoice" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CodeProfile" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PROFILE" Relationship="Self.FK_PRODUCER_PROFILE" FromRole="PRODUCER" ToRole="PROFILE" />
+          <NavigationProperty Name="PRODUCT" Relationship="Self.FK_PRODUCT_PRODUCER" FromRole="PRODUCER" ToRole="PRODUCT" />
+        </EntityType>
+        <EntityType Name="PRODUCT">
+          <Key>
+            <PropertyRef Name="CallNumber" />
+          </Key>
+          <Property Name="CallNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="MaterialCode" Type="Int32" Nullable="false" />
+          <Property Name="ProducerCode" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MATERIAL" Relationship="Self.FK_PRODUCT_MATERIAL" FromRole="PRODUCT" ToRole="MATERIAL" />
+          <NavigationProperty Name="PRODUCER" Relationship="Self.FK_PRODUCT_PRODUCER" FromRole="PRODUCT" ToRole="PRODUCER" />
+          <NavigationProperty Name="REQUEST" Relationship="Self.FK_REQUEST_PRODUCT" FromRole="PRODUCT" ToRole="REQUEST" />
+        </EntityType>
+        <EntityType Name="PROFILE">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CONSUMER" Relationship="Self.FK_CONSUMER_PROFILE" FromRole="PROFILE" ToRole="CONSUMER" />
+          <NavigationProperty Name="PRODUCER" Relationship="Self.FK_PRODUCER_PROFILE" FromRole="PROFILE" ToRole="PRODUCER" />
+        </EntityType>
+        <EntityType Name="REQUEST">
+          <Key>
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="Number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountOfProduct" Type="Int32" Nullable="false" />
+          <Property Name="DateRequest" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Deadline" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ConsumerCode" Type="Int32" Nullable="false" />
+          <Property Name="ProductNumber" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CONSUMER" Relationship="Self.FK_REQUEST_CONSUMER" FromRole="REQUEST" ToRole="CONSUMER" />
+          <NavigationProperty Name="PRODUCT" Relationship="Self.FK_REQUEST_PRODUCT" FromRole="REQUEST" ToRole="PRODUCT" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SignIn" Relationship="Self.FK_SignIn_Role" FromRole="Role" ToRole="SignIn" />
+        </EntityType>
+        <EntityType Name="SignIn">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleID" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_SignIn_Role" FromRole="SignIn" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_CONSUMER_PROFILE">
+          <End Role="PROFILE" Type="Self.PROFILE" Multiplicity="1" />
+          <End Role="CONSUMER" Type="Self.CONSUMER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROFILE">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="CONSUMER">
+              <PropertyRef Name="CodeProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REQUEST_CONSUMER">
+          <End Role="CONSUMER" Type="Self.CONSUMER" Multiplicity="1" />
+          <End Role="REQUEST" Type="Self.REQUEST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONSUMER">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="REQUEST">
+              <PropertyRef Name="ConsumerCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCT_MATERIAL">
+          <End Role="MATERIAL" Type="Self.MATERIAL" Multiplicity="1" />
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MATERIAL">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="PRODUCT">
+              <PropertyRef Name="MaterialCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCER_PROFILE">
+          <End Role="PROFILE" Type="Self.PROFILE" Multiplicity="1" />
+          <End Role="PRODUCER" Type="Self.PRODUCER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROFILE">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="PRODUCER">
+              <PropertyRef Name="CodeProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCT_PRODUCER">
+          <End Role="PRODUCER" Type="Self.PRODUCER" Multiplicity="1" />
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCER">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="PRODUCT">
+              <PropertyRef Name="ProducerCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REQUEST_PRODUCT">
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+          <End Role="REQUEST" Type="Self.REQUEST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCT">
+              <PropertyRef Name="CallNumber" />
+            </Principal>
+            <Dependent Role="REQUEST">
+              <PropertyRef Name="ProductNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SignIn_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SignIn" Type="Self.SignIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Status" />
+            </Principal>
+            <Dependent Role="SignIn">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ELDAREntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CONSUMER" EntityType="Self.CONSUMER" />
+          <EntitySet Name="MATERIAL" EntityType="Self.MATERIAL" />
+          <EntitySet Name="PRODUCER" EntityType="Self.PRODUCER" />
+          <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" />
+          <EntitySet Name="PROFILE" EntityType="Self.PROFILE" />
+          <EntitySet Name="REQUEST" EntityType="Self.REQUEST" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="SignIn" EntityType="Self.SignIn" />
+          <AssociationSet Name="FK_CONSUMER_PROFILE" Association="Self.FK_CONSUMER_PROFILE">
+            <End Role="PROFILE" EntitySet="PROFILE" />
+            <End Role="CONSUMER" EntitySet="CONSUMER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REQUEST_CONSUMER" Association="Self.FK_REQUEST_CONSUMER">
+            <End Role="CONSUMER" EntitySet="CONSUMER" />
+            <End Role="REQUEST" EntitySet="REQUEST" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCT_MATERIAL" Association="Self.FK_PRODUCT_MATERIAL">
+            <End Role="MATERIAL" EntitySet="MATERIAL" />
+            <End Role="PRODUCT" EntitySet="PRODUCT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCER_PROFILE" Association="Self.FK_PRODUCER_PROFILE">
+            <End Role="PROFILE" EntitySet="PROFILE" />
+            <End Role="PRODUCER" EntitySet="PRODUCER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCT_PRODUCER" Association="Self.FK_PRODUCT_PRODUCER">
+            <End Role="PRODUCER" EntitySet="PRODUCER" />
+            <End Role="PRODUCT" EntitySet="PRODUCT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REQUEST_PRODUCT" Association="Self.FK_REQUEST_PRODUCT">
+            <End Role="PRODUCT" EntitySet="PRODUCT" />
+            <End Role="REQUEST" EntitySet="REQUEST" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SignIn_Role" Association="Self.FK_SignIn_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="SignIn" EntitySet="SignIn" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ELDARModelContainer" CdmEntityContainer="ELDAREntities">
+          <EntitySetMapping Name="CONSUMER">
+            <EntityTypeMapping TypeName="ELDARModel.CONSUMER">
+              <MappingFragment StoreEntitySet="CONSUMER">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Invoice" ColumnName="Invoice" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="CodeProfile" ColumnName="CodeProfile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MATERIAL">
+            <EntityTypeMapping TypeName="ELDARModel.MATERIAL">
+              <MappingFragment StoreEntitySet="MATERIAL">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCER">
+            <EntityTypeMapping TypeName="ELDARModel.PRODUCER">
+              <MappingFragment StoreEntitySet="PRODUCER">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Invoice" ColumnName="Invoice" />
+                <ScalarProperty Name="CodeProfile" ColumnName="CodeProfile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCT">
+            <EntityTypeMapping TypeName="ELDARModel.PRODUCT">
+              <MappingFragment StoreEntitySet="PRODUCT">
+                <ScalarProperty Name="CallNumber" ColumnName="CallNumber" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="MaterialCode" ColumnName="MaterialCode" />
+                <ScalarProperty Name="ProducerCode" ColumnName="ProducerCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROFILE">
+            <EntityTypeMapping TypeName="ELDARModel.PROFILE">
+              <MappingFragment StoreEntitySet="PROFILE">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REQUEST">
+            <EntityTypeMapping TypeName="ELDARModel.REQUEST">
+              <MappingFragment StoreEntitySet="REQUEST">
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="CountOfProduct" ColumnName="CountOfProduct" />
+                <ScalarProperty Name="DateRequest" ColumnName="DateRequest" />
+                <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+                <ScalarProperty Name="ConsumerCode" ColumnName="ConsumerCode" />
+                <ScalarProperty Name="ProductNumber" ColumnName="ProductNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="ELDARModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SignIn">
+            <EntityTypeMapping TypeName="ELDARModel.SignIn">
+              <MappingFragment StoreEntitySet="SignIn">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
