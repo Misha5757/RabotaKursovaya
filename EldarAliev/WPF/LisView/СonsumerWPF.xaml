@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:EldarAliev.WPF.LisView"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="СonsumerWPF" Loaded="Page_Loaded">
+      Title="Потребитель" Loaded="Page_Loaded">
 
     <Grid Background="White">
         <Grid.RowDefinitions >

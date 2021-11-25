@@ -24,7 +24,7 @@ namespace EldarAliev
         public MainWindow()
         {
             InitializeComponent();
-            Main.NavigationService.Navigate(new Aut());
+            MainFrame.NavigationService.Navigate(new Aut());
         }
     }
 }

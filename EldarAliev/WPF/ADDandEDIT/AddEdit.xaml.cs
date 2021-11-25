@@ -23,12 +23,13 @@ namespace EldarAliev.WPF.ADDandEDIT
    
     public partial class AddEdit : Page
     {
+        
         public CONSUMER consumer { get; set; }
-        public List<PROFILE> ps { get; set; }
+        public List<PROFILE> profile { get; set; }
         public AddEdit(CONSUMER consumers)
         {
             InitializeComponent();
-            ps = Class1.db.PROFILE.ToList();
+            profile = Class1.db.PROFILE.ToList();
             consumer = consumers;
             this.DataContext = this;
 

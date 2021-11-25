@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:EldarAliev.WPF.Zaivka"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Zaivki" Loaded="Page_Loaded">
+      Title="Заявки" Loaded="Page_Loaded">
 
     <Grid Background="White">
         <Grid Background="White">
@@ -16,6 +16,9 @@
                 <RowDefinition Height="0.5*" />
 
             </Grid.RowDefinitions>
+            <Grid Grid.Row="3">
+                <Button Content="Печать" Click="Button_Click_1" />
+            </Grid>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -36,6 +39,7 @@
                             Foreground="White"
                             Click="cleanBtn_Click" />
                     </StackPanel>
+                    
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="0">

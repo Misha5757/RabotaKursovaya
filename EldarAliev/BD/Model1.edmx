@@ -77,6 +77,16 @@
           <Property Name="Email" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="RoleID" Type="nchar" MaxLength="1" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <Association Name="FK_CONSUMER_PROFILE">
           <End Role="PROFILE" Type="Self.PROFILE" Multiplicity="1" />
           <End Role="CONSUMER" Type="Self.CONSUMER" Multiplicity="*" />
@@ -172,6 +182,7 @@
           <EntitySet Name="REQUEST" EntityType="Self.REQUEST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SignIn" EntityType="Self.SignIn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_CONSUMER_PROFILE" Association="Self.FK_CONSUMER_PROFILE">
             <End Role="PROFILE" EntitySet="PROFILE" />
             <End Role="CONSUMER" EntitySet="CONSUMER" />
@@ -292,6 +303,16 @@
           <Property Name="RoleID" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Role" Relationship="Self.FK_SignIn_Role" FromRole="SignIn" ToRole="Role" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <Association Name="FK_CONSUMER_PROFILE">
           <End Role="PROFILE" Type="Self.PROFILE" Multiplicity="1" />
           <End Role="CONSUMER" Type="Self.CONSUMER" Multiplicity="*" />
@@ -387,6 +408,7 @@
           <EntitySet Name="REQUEST" EntityType="Self.REQUEST" />
           <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="SignIn" EntityType="Self.SignIn" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <AssociationSet Name="FK_CONSUMER_PROFILE" Association="Self.FK_CONSUMER_PROFILE">
             <End Role="PROFILE" EntitySet="PROFILE" />
             <End Role="CONSUMER" EntitySet="CONSUMER" />
@@ -499,6 +521,17 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ELDARModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
