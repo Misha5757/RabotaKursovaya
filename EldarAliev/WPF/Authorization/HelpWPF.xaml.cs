@@ -71,5 +71,10 @@ namespace EldarAliev.WPF.Authorization
                 MessageBox.Show("Ошибка" + ex);
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
     }
 }

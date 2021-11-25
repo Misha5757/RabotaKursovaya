@@ -15,27 +15,56 @@
             <RowDefinition Height="0.5*" />
           
         </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel VerticalAlignment="Top" 
+                        HorizontalAlignment="Left" 
+                        Orientation="Horizontal">
+                <Button  x:Name="Back" Content="Назад"
+                         Click="Back_Click"
+                         Background="Black"
+                         BorderBrush="Black"
+                         Foreground="White" />
 
-        <Grid Grid.Row="1" Margin="0,1">
-            <ListView x:Name="ConsumerOutput">
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" 
+                        HorizontalAlignment="Center" 
+                        Orientation="Horizontal">
+
+                <TextBlock Text="Поиск:"
+                           Width="50"/>
+                <TextBox x:Name="SearCH" 
+                         Width="170"
+                         TextChanged="SearCH_TextChanged" />
+            </StackPanel>
+         
+        </Grid>
+        
+        <Grid Grid.Row="1"
+              Margin="0,1">
+        
+         <ListView x:Name="ConsumerOutput" 
+                   Background="Wheat"  >
                 <ListView.ItemTemplate>
 
                     <DataTemplate>
 
-                        <Grid>
+                        <Grid >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="100"  />
 
                             </Grid.ColumnDefinitions>
+                         
 
 
-                            <StackPanel VerticalAlignment="Top"
+                            <StackPanel VerticalAlignment="Top"  
+                                        Background="Wheat"
                                             HorizontalAlignment="Left"
-                                            Orientation="Vertical"  Grid.Column="0">
+                                            Orientation="Vertical"  
+                                        Grid.Column="0">
                                 <Label Content="{Binding Code}"
                                ContentStringFormat="ID: {0} " 
-                               Background="White"/>
+                              />
 
                                 <Label Content="{Binding Title}"
                                ContentStringFormat="Название потребителя: {0} " 
@@ -55,7 +84,9 @@
                                 <Label Content="{Binding PROFILE.Title}" 
                                ContentStringFormat="Профиль: {0} " 
                                Background="White"/>
-                                <Button x:Name="Edit"  Height="25" Content="Редактировать" />
+                                <Button x:Name="Edit" 
+                                        Height="25" Content="Редактировать" 
+                                        Click="Edit_Click"   />
                             </StackPanel>
 
 
@@ -66,7 +97,16 @@
             </ListView>
         </Grid>
         <StackPanel  HorizontalAlignment="Center"   Orientation="Horizontal"  Grid.Row="3">
-            <Button x:Name="Del"  Content="Удалить" Click="Del_Click"/>
+            <Button x:Name="Add"  Content="Добавить" Click="Add_Click" Margin="0 0 10 0" Width="100" 
+                            Background="Black"
+                            BorderBrush="Black"
+                            Foreground="White"/>
+            <Button x:Name="Del"  Content="Удалить" Click="Del_Click" Margin="0 0 10 0" Width="100"  Background="Black"
+                            BorderBrush="Black"
+                            Foreground="White"/>
+            <Button x:Name="Zaiv"  Content="Заявки" Click="Zaiv_Click " Width="100" Background="Black"
+                            BorderBrush="Black"
+                            Foreground="White"/>
         </StackPanel>
     </Grid>
 
