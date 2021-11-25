@@ -26,7 +26,7 @@
                 <TextBox x:Name="INN" Text="{Binding consumer.INN}" />
                 <TextBlock Text="Профиль:" 
                               />
-                <ComboBox   x:Name="s" ItemsSource="{Binding ps}" SelectedItem="{Binding consumers.CONSUMER}"  DisplayMemberPath="Title"  />
+                <ComboBox   x:Name="s" ItemsSource="{Binding ps}" SelectedItem="{Binding consumer.PROFILE}"  DisplayMemberPath="Title"  />
                 
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0 10 0 0">

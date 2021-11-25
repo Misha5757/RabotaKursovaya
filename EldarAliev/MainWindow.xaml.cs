@@ -1,4 +1,5 @@
-﻿using EldarAliev.WPF.Authorization;
+﻿using EldarAliev.WPF.ADDandEDIT;
+using EldarAliev.WPF.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace EldarAliev
         {
             InitializeComponent();
             Main.NavigationService.Navigate(new Aut());
+            //Main.NavigationService.Navigate(new AddEdit(new BD.CONSUMER()));
         }
     }
 }
