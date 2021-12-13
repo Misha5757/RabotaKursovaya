@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e5b3b1407920437fb5bc048f48140df6" Name="Diagram1">
+        <EntityTypeShape EntityType="MagazModel.CONSUMER" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MagazModel.Entrance" Width="1.5" PointX="12.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MagazModel.MATERIAL" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MagazModel.PRODUCER" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MagazModel.PRODUCT" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MagazModel.PROFILE" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MagazModel.REQUEST" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MagazModel.Role" Width="1.5" PointX="7.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MagazModel.SignIn" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MagazModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="MagazModel.FK_CONSUMER_PROFILE" ManuallyRouted="false" />
+        <AssociationConnector Association="MagazModel.FK_REQUEST_CONSUMER" ManuallyRouted="false" />
+        <AssociationConnector Association="MagazModel.FK_Entrance_SignIn" ManuallyRouted="false" />
+        <AssociationConnector Association="MagazModel.FK_PRODUCT_MATERIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="MagazModel.FK_PRODUCER_PROFILE" ManuallyRouted="false" />
+        <AssociationConnector Association="MagazModel.FK_PRODUCT_PRODUCER" ManuallyRouted="false" />
+        <AssociationConnector Association="MagazModel.FK_REQUEST_PRODUCT" ManuallyRouted="false" />
+        <AssociationConnector Association="MagazModel.FK_SignIn_Role" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

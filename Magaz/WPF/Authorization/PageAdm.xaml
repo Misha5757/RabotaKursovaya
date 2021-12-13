@@ -1,0 +1,19 @@
+﻿<Page x:Class="EldarAliev.WPF.Authorization.PageAdm"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EldarAliev.WPF.Authorization"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageAdm">
+
+    <Grid Background="White">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical">
+            <Button Content="Список пользователей" Name="Nazv" Margin="0 0 0 5" Click="Nazv_Click" />
+            <Button Content="История посещений"  Margin="0 0 0 5" Click="Button_Click"/>
+            <Button Content="Потребитель" Name="ConsumerWpfNavigation"  Margin="0 0 0 5" Click="ConsumerWpfNavigation_Click"/>
+            <Button Content="Назад"  Margin="0 0 0 5" Name="Back" Click="Back_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>
